@@ -1,3 +1,26 @@
+/* create cells of the chessboard*/
+function createBlock(){
+  for(let i = 0; i  < chessBoardLength; i++){
+    let div = document.createElement('div');
+    div.className = "col";
+    document.getElementById("chessboard").append(div);
+    for(let j = 0; j < chessBoardLength; j++){
+      let button = document.createElement('button');
+      button.className = "blocks";
+      /* add the class to item on the diagonal (positive direction: \ ) (negative direction: / ) */
+      if (chessBoardLength % 2) {
+        if(i == j){
+          button.classList.add('posDiagonal');
+        }
+        if((i + j + 1) == chessBoardLength){
+          button.classList.add('negDiagonal');
+        }
+      }
+      document.getElementsByClassName("col")[i].append(button);
+    }
+  }
+}
+
 /* disable the cell of chessboard and remove the display of the hover action */
 function disableBlock(element) {
   element.removeEventListener('click', clickBlock);

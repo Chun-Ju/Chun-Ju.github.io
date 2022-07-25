@@ -16,6 +16,7 @@ let _players = document.getElementsByClassName("players");
 /* after first time onload, it need to set sth */
 function initial() {
 
+  createBlock();
   resetBlock();
 
   players = [new Player("O"), new Player("X")];
@@ -26,14 +27,6 @@ function initial() {
 
   _restart.addEventListener("click", reset);
   _restart.disabled = true;
-
-  /* add the class to item on the diagonal (positive direction: \ ) (negative direction: / ) */
-  if (chessBoardLength % 2) {
-    for (let i = 0; i < chessBoardLength; i++) {
-      _blocks[i * chessBoardLength + i].classList.add('posDiagonal');
-      _blocks[(i + 1) * (chessBoardLength - 1)].classList.add('negDiagonal');
-    }
-  }
 
 }
 
