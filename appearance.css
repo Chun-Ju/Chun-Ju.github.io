@@ -16,7 +16,7 @@ body {
   margin-left: 25px;
 }
 
-#buttonArea, span, #chessboard {
+input, span, #chessboard {
   position: relative;
   margin: 20px 0px;
 }
@@ -81,12 +81,12 @@ input:disabled {
   cursor: default;
 }
 
-.blocks[class *="hoverable"]:hover::after {
-  content: var(--curPlayer);
+.hoverable:hover {
+  cursor: pointer;
 }
 
-.blocks[class *="hoverable"]:hover {
-  cursor: pointer;
+.hoverable:hover::after {
+  content: var(--curPlayer);
 }
 
 /* text area setting */

@@ -7,51 +7,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="./appearance.css" media="all">
 </head>
+
 <body>
-  <div id="buttonArea">
-    <input type="button" value="開始" id="start"> 
-    <input type="button" value="重置" id="restart"> 
-  </div>
+  <input type="button" value="開始" id="start">
+  <input type="button" value="重置" id="restart">
   <div id="chessboard">
-    <div class="col">
-      <button class="blocks"></button>
-      <button class="blocks"></button>
-      <button class="blocks"></button>
-    </div>
-    <div class="col">
-      <button class="blocks"></button>
-      <button class="blocks"></button>
-      <button class="blocks"></button>
-    </div>
-    <div class="col">
-      <button class="blocks"></button>
-      <button class="blocks"></button>
-      <button class="blocks"></button>
-    </div>
   </div>
   <div>
     <span>
       <p>
-        目前玩家 : 
+        目前玩家 :
       </p>
       <p id="whoTurns"></p>
     </span>
     <span>
       <p>
-        O : 
+        O :
       </p>
       <p class="players"></p>
     </span>
     <span>
       <p>
-        X : 
+        X :
       </p>
       <p class="players"></p>
     </span>
   </div>
   <script src="./js/blockFunc.js" media="all"></script>
   <script src="./js/timer.js" media="all"></script>
-  <script src="./js/tic.js" media="all"></script>  
+  <script src="./js/tic.js" media="all"></script>
 </body>
 
 </html>
