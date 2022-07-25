@@ -22,6 +22,7 @@ function startTimer() {
 }
 
 function cancelTimer() {
+  gameEnd = 1;
   /* to avoid double cancel the same timer */
   if (timerId != 0) {
     window.cancelAnimationFrame(timerId);

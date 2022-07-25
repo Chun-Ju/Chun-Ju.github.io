@@ -1,11 +1,14 @@
 let chessBoardLength = 3;
-
+//timeLimit * 0.1s
+let timeLimit = 600;
 let players;
 let player = 0;
+//determine game is ending or not
+let gameEnd = 1;
 
 function Player(name) {
   this.name = name;
-  this.time = 600;
+  this.time = timeLimit;
 }
 
 let _start = document.getElementById('start');
@@ -20,7 +23,7 @@ function initial() {
   resetBlock();
 
   players = [new Player("O"), new Player("X")];
-  Object.entries(_players).forEach(([, element]) => element.textContent = (60.0).toFixed(1));
+  Array.from(_players).forEach(element => element.textContent = (timeLimit / 10).toFixed(1));
 
   _start.addEventListener("click", start);
   _start.disabled = false;
@@ -32,12 +35,14 @@ function initial() {
 
 /* enable to click and hover effect, finally start the timer */
 function start() {
+  gameEnd = 0;
+  document.getElementById("chessboard").onclick = function(event) {
+    if(!event.target.textContent && !gameEnd){
+      clickBlock(event.target);
+    }
+  };
 
-  Object.entries(_blocks).forEach(([, element]) => {
-    element.addEventListener("click", clickBlock);
-    element.textContent = "";
-    element.classList.add('hoverable');
-  });
+  Array.from(_blocks).forEach(element => element.classList.add('hoverable'));
 
   [_start.disabled, _restart.disabled] = [_restart.disabled, _start.disabled];
   //start the timer
@@ -48,7 +53,7 @@ function start() {
 function reset() {
   //stop the timer
   cancelTimer();
-  Object.entries(_players).forEach(([, element]) => element.textContent = (60.0).toFixed(1));
+  Array.from(_players).forEach(element => element.textContent = (60.0).toFixed(1));
 
   resetBlock();
 
@@ -66,8 +71,8 @@ function winOrDeuce(win, winner) {
   //stop the timer
   cancelTimer();
 
+  Array.from(_blocks).forEach(element => element.classList.remove('hoverable'));
   (win) ? alert(`贏家是${winner}`) : alert("平手");
-  Object.entries(_blocks).forEach(([, element]) => disableBlock(element));
 
   return 0;
 
