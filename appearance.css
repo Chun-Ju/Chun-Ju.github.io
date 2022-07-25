@@ -1,0 +1,97 @@
+:root {
+  /* width/height per block of tic-tac-toc */
+  --baselineSize: 50px;
+  /* record the current player's icon to display */
+  --curPlayer: "O";
+}
+
+/* general setting */
+* {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+body {
+  margin-left: 25px;
+}
+
+#buttonArea, span, #chessboard {
+  position: relative;
+  margin: 20px 0px;
+}
+
+/* restart and start button style setting */
+input {
+  border: 1px solid #000;
+  border-radius: 2px;
+  padding: 3px 5px;
+  cursor: pointer;
+}
+
+input + input {
+  margin-left: 25px;
+}
+
+input:disabled {
+  border: 1px solid #aaa;
+  cursor: default;
+}
+
+/* tic-tac-toc chessboard setting */
+#chessboard {
+  display: flex;
+  top: 0px;
+  left: 0px;
+
+  height: calc(3 * var(--baselineSize));
+  width: calc(3 * var(--baselineSize));
+
+  cursor: pointer;
+}
+
+.col {
+  display: inline;
+}
+
+.blocks:first-child {
+  border-top: 1px solid #000;
+}
+
+.col:first-child {
+  border-left: 1px solid #000;
+}
+
+/* cell of the chessboard setting */
+.blocks {
+  display: block;
+
+  height: var(--baselineSize);
+  width: var(--baselineSize);
+  /* border */
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  /* text and align center */
+  text-align: center;
+  line-height: var(--baselineSize);
+  font-size: large;
+
+  background-color: transparent;
+}
+
+.blocks[class *="hoverable"]:hover::after {
+  content: var(--curPlayer);
+}
+
+/* text area setting */
+span {
+  display: block;
+}
+
+span > p {
+  display: inline;
+}
+
+#whoTurns::after {
+  content: var(--curPlayer);
+}
