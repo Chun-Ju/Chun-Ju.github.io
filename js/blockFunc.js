@@ -1,10 +1,10 @@
 /* create cells of the chessboard*/
 function createBlock() {
-  for (let i = 0; i < chessBoardLength; i++) {
+  Array.from({ length: chessBoardLength }, (x, i) => {
     let div = document.createElement('div');
     div.className = "col";
     document.getElementById("chessboard").append(div);
-    for (let j = 0; j < chessBoardLength; j++) {
+    Array.from({ length: chessBoardLength }, (y, j) => {
       let button = document.createElement('button');
       button.className = "blocks";
       /* add the class to item on the diagonal (positive direction: \ ) (negative direction: / ) */
@@ -17,8 +17,8 @@ function createBlock() {
         }
       }
       document.getElementsByClassName("col")[i].append(button);
-    }
-  }
+    });
+  });
 }
 
 /* enable the cell of chessboard can click and other style setting */
