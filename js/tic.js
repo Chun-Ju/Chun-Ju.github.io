@@ -74,7 +74,7 @@ function winOrDeuce(win, winner) {
   cancelTimer();
 
   (win) ? alert(`贏家是${winner}`) : alert("平手");
-  Object.entries(_blocks).forEach(([, element]) => disableBlock.call(element));
+  Object.entries(_blocks).forEach(([, element]) => disableBlock(element));
 
   return 0;
 
