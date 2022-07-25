@@ -68,6 +68,8 @@ input:disabled {
 
   height: var(--baselineSize);
   width: var(--baselineSize);
+
+  background-color: transparent;
   /* border */
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
@@ -75,12 +77,16 @@ input:disabled {
   text-align: center;
   line-height: var(--baselineSize);
   font-size: large;
-
-  background-color: transparent;
+  /* cursor setting */
+  cursor: default;
 }
 
 .blocks[class *="hoverable"]:hover::after {
   content: var(--curPlayer);
+}
+
+.blocks[class *="hoverable"]:hover {
+  cursor: pointer;
 }
 
 /* text area setting */

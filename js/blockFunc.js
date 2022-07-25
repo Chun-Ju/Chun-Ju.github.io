@@ -2,7 +2,6 @@
 function disableBlock() {
   this.removeEventListener('click', clickBlock);
   this.classList.remove('hoverable');
-  this.style.cursor = "default";
 }
 
 /* enable the cell of chessboard can click and other style setting */

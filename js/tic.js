@@ -42,7 +42,6 @@ function start() {
 
   Object.entries(_blocks).forEach(([, element]) => {
     element.addEventListener("click", clickBlock);
-    element.style.cursor = "pointer";
     element.textContent = "";
     element.classList.add('hoverable');
   });
