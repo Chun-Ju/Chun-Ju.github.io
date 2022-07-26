@@ -1,6 +1,5 @@
 let chessBoardLength = 3;
-//timeLimit * 0.1s
-let timeLimit = 600;
+
 let players;
 let player = 0;
 //determine game is ending or not
@@ -23,7 +22,7 @@ function initial() {
   resetBlock();
 
   players = [new Player("O"), new Player("X")];
-  Array.from(_players).forEach(element => element.textContent = (timeLimit / 10).toFixed(1));
+  Array.from(_players).forEach(element => element.textContent = (timeLimit / sec).toFixed(precision));
 
   _start.addEventListener("click", start);
   _start.disabled = false;
@@ -53,7 +52,7 @@ function start() {
 function reset() {
   //stop the timer
   cancelTimer();
-  Array.from(_players).forEach(element => element.textContent = (60.0).toFixed(1));
+  Array.from(_players).forEach(element => element.textContent = (timeLimit / sec).toFixed(precision));
 
   resetBlock();
 
