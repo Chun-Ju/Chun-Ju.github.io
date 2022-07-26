@@ -6,17 +6,18 @@ function createBlock() {
     document.getElementById("chessboard").append(div);
     Array.from({ length: chessBoardLength }, (y, j) => {
       let button = document.createElement('button');
-      button.className = "blocks";
+      let strArr = ['blocks' ,'row'+ j, 'col' + i];
       /* add the class to item on the diagonal (positive direction: \ ) (negative direction: / ) */
       if (chessBoardLength % 2) {
         if (i == j) {
-          button.classList.add('posDiagonal');
+          strArr.push('posDiagonal');
         }
         if ((i + j + 1) == chessBoardLength) {
-          button.classList.add('negDiagonal');
+          strArr.push('negDiagonal');
         }
       }
-      document.getElementsByClassName("col")[i].append(button);
+      button.classList.add(...strArr);
+      div.append(button);
     });
   });
 }
@@ -27,6 +28,12 @@ function resetBlock() {
     element.classList.remove('hoverable');
     element.textContent = "";
   });
+}
+
+function checkLine(value, elementStr){
+  let same = 1;
+  document.querySelectorAll(elementStr).forEach(node => same = (node.textContent != value) ? 0 : same);
+  return same;
 }
 
 /* check is player win or chessboard is full ? 
@@ -40,28 +47,7 @@ function checkStatus(element) {
   let col = Math.trunc(current / chessBoardLength);
   let row = current % chessBoardLength;
 
-  //check the col ( | )
-  let same = 1;
-  document.querySelectorAll('.col:nth-child(' + (col + 1) + ') > .blocks').forEach(node => same = (node.textContent != value) ? 0 : same);
-
-  //check the row ( 一 )
-  if (!same) {
-    same = 1;
-    document.querySelectorAll('.col > .blocks:nth-child(' + (row + 1) + ')').forEach(node => same = (node.textContent != value) ? 0 : same);
-  }
-
-  //check the positive direction diagonal ( \ )
-  if (!same && (col == row)) {
-    same = 1;
-    document.querySelectorAll('.posDiagonal').forEach(node => same = (node.textContent != value) ? 0 : same);
-  }
-
-  //check the negative direction Diagonal ( / )
-  if (!same && ((col + row + 1) == chessBoardLength)) {
-    same = 1;
-    document.querySelectorAll('.negDiagonal').forEach(node => same = (node.textContent != value) ? 0 : same);
-  }
-
+  let same = (checkLine(value, '.col' + col) || checkLine(value, '.row' + row) ||  ((col == row) ? checkLine(value, '.posDiagonal') : 0) || (((col + row + 1) == chessBoardLength)? checkLine(value, '.negDiagonal') : 0));
   if (same) {
     return winOrDeuce(1, players[player].name);
   }
