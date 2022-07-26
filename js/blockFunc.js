@@ -69,7 +69,7 @@ function clickBlock(element) {
 
   if (checkStatus(element)) {
     player ^= 1;
-    document.querySelector(":root").style.setProperty('--curPlayer', `"${players[player].name}"`);
+    rootElement.style.setProperty('--curPlayer', `"${players[player].name}"`);
   }
 
 }

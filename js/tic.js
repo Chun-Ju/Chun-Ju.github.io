@@ -14,6 +14,7 @@ let _start = document.getElementById('start');
 let _restart = document.getElementById('restart');
 let _blocks = document.getElementsByClassName('blocks');
 let _players = document.getElementsByClassName("players");
+let rootElement = document.documentElement;
 
 /* after first time onload, it need to set sth */
 function initial() {
@@ -59,7 +60,7 @@ function reset() {
   player = 0;
   players = [new Player("O"), new Player("X")];
 
-  document.querySelector(":root").style.setProperty('--curPlayer', `"${players[player].name}"`);
+  rootElement.style.setProperty('--curPlayer', `"${players[player].name}"`);
 
   [_start.disabled, _restart.disabled] = [_restart.disabled, _start.disabled];
 
