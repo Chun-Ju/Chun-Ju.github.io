@@ -1,6 +1,7 @@
 :root {
   /* width/height per block of tic-tac-toc */
   --baselineSize: 50px;
+  --chessBoardSize: 3;
   /* record the current player's icon to display */
   --curPlayer: "O";
 }
@@ -40,26 +41,18 @@ input:disabled {
 
 /* tic-tac-toc chessboard setting */
 #chessboard {
-  display: flex;
+  display: flex;  
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+
   top: 0px;
   left: 0px;
 
-  height: calc(3 * var(--baselineSize));
-  width: calc(3 * var(--baselineSize));
+  height: calc(var(--chessBoardSize) * var(--baselineSize));
+  width: calc(var(--chessBoardSize) * var(--baselineSize));
 
   cursor: pointer;
-}
-
-.col {
-  display: inline;
-}
-
-.blocks:first-child {
-  border-top: 1px solid #000;
-}
-
-.col:first-child {
-  border-left: 1px solid #000;
 }
 
 /* cell of the chessboard setting */

@@ -1,25 +1,17 @@
 /* create cells of the chessboard*/
 function createBlock() {
-  Array.from({ length: chessBoardLength }, (x, i) => {
-    let div = document.createElement('div');
-    div.className = "col";
-    document.getElementById("chessboard").append(div);
-    Array.from({ length: chessBoardLength }, (y, j) => {
-      let button = document.createElement('button');
-      let strArr = ['blocks' ,'row'+ j, 'col' + i];
-      /* add the class to item on the diagonal (positive direction: \ ) (negative direction: / ) */
-      if (chessBoardLength % 2) {
-        if (i == j) {
-          strArr.push('posDiagonal');
-        }
-        if ((i + j + 1) == chessBoardLength) {
-          strArr.push('negDiagonal');
-        }
-      }
-      button.classList.add(...strArr);
-      div.append(button);
-    });
+  let board = document.getElementById("chessboard");
+  Array.from({ length: (chessBoardLength ** 2) }, (x, i) => {
+    let button = document.createElement('button');
+    button.className = 'blocks';
+    board.append(button);
+    //1d -> 2d structure
+    _block2d[Math.trunc(i / chessBoardLength)][i % chessBoardLength] = _blocks[i];
   });
+  document.querySelector('.blocks:last-of-type').classList.add('last');
+
+  document.querySelectorAll('.blocks:nth-of-type(-n + ' + chessBoardLength + ')').forEach(node => node.style.borderTop = "1px solid #000");
+  document.querySelectorAll('.blocks:nth-of-type(' + chessBoardLength + 'n - ' + (chessBoardLength - 1) + ')').forEach(node => node.style.borderLeft = "1px solid #000");
 }
 
 /* enable the cell of chessboard can click and other style setting */
@@ -30,10 +22,8 @@ function resetBlock() {
   });
 }
 
-function checkLine(value, elementStr){
-  let same = 1;
-  document.querySelectorAll(elementStr).forEach(node => same = (node.textContent != value) ? 0 : same);
-  return same;
+function checkLine(element){
+  return element.every(node => node.textContent == players[player].name);
 }
 
 /* check is player win or chessboard is full ? 
@@ -42,13 +32,15 @@ function checkLine(value, elementStr){
 function checkStatus(element) {
 
   let current = Object.values(_blocks).indexOf(element);
-  let value = element.textContent;
 
-  let col = Math.trunc(current / chessBoardLength);
-  let row = current % chessBoardLength;
+  let row = Math.trunc(current / chessBoardLength);
+  let col = current % chessBoardLength;
 
-  let same = (checkLine(value, '.col' + col) || checkLine(value, '.row' + row) ||  ((col == row) ? checkLine(value, '.posDiagonal') : 0) || (((col + row + 1) == chessBoardLength)? checkLine(value, '.negDiagonal') : 0));
-  if (same) {
+  let colLine = Array.from({length:chessBoardLength}, (x, i) => _block2d[i][col]);                                                                           //check col               ( | )
+  let rowLine = _block2d[row];                                                                                                                               //check row               ( 一 )
+  let posDiagonalLine = (col == row)? Array.from({length:chessBoardLength}, (x, i) => _block2d[i][i]) : [''];                                                //check positive Diagonal ( \ )
+  let negDiagonalLine = ((col + row + 1) == chessBoardLength)? Array.from({length:chessBoardLength}, (x, i) => _block2d[i][chessBoardLength - 1 - i]) : [''];//check negative Diagonal ( / )
+  if(checkLine(colLine) || checkLine(rowLine) || checkLine(posDiagonalLine) || checkLine(negDiagonalLine)){
     return winOrDeuce(1, players[player].name);
   }
 
@@ -66,7 +58,6 @@ function clickBlock(element) {
 
   element.classList.remove('hoverable');
   element.textContent = players[player].name;
-
   if (checkStatus(element)) {
     player ^= 1;
     rootElement.style.setProperty('--curPlayer', `"${players[player].name}"`);

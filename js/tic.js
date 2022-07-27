@@ -2,6 +2,7 @@ let chessBoardLength = 3;
 
 let players;
 let player = 0;
+
 //determine game is ending or not
 let gameEnd = 1;
 
@@ -13,12 +14,14 @@ function Player(name) {
 let _start = document.getElementById('start');
 let _restart = document.getElementById('restart');
 let _blocks = document.getElementsByClassName('blocks');
+let _block2d = Array.from(Array(chessBoardLength), () => new Array(chessBoardLength));
 let _players = document.getElementsByClassName("players");
 let rootElement = document.documentElement;
 
 /* after first time onload, it need to set sth */
 function initial() {
 
+  rootElement.style.setProperty('--chessBoardSize', `${chessBoardLength}`);
   createBlock();
   resetBlock();
 
