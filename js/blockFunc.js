@@ -17,12 +17,11 @@ function createBlock() {
 /* enable the cell of chessboard can click and other style setting */
 function resetBlock() {
   Array.from(_blocks).forEach((element) => {
-    element.classList.remove('hoverable');
     element.textContent = "";
   });
 }
 
-function checkLine(element){
+function checkLine(element) {
   return element.every(node => node.textContent == players[player].name);
 }
 
@@ -36,11 +35,11 @@ function checkStatus(element) {
   let row = Math.trunc(current / chessBoardLength);
   let col = current % chessBoardLength;
 
-  let colLine = Array.from({length:chessBoardLength}, (x, i) => _block2d[i][col]);                                                                           //check col               ( | )
-  let rowLine = _block2d[row];                                                                                                                               //check row               ( 一 )
-  let posDiagonalLine = (col == row)? Array.from({length:chessBoardLength}, (x, i) => _block2d[i][i]) : [''];                                                //check positive Diagonal ( \ )
-  let negDiagonalLine = ((col + row + 1) == chessBoardLength)? Array.from({length:chessBoardLength}, (x, i) => _block2d[i][chessBoardLength - 1 - i]) : [''];//check negative Diagonal ( / )
-  if(checkLine(colLine) || checkLine(rowLine) || checkLine(posDiagonalLine) || checkLine(negDiagonalLine)){
+  let colLine = Array.from({ length: chessBoardLength }, (x, i) => _block2d[i][col]);                                                                            //check col               ( | )
+  let rowLine = _block2d[row];                                                                                                                                   //check row               ( 一 )
+  let posDiagonalLine = (col == row) ? Array.from({ length: chessBoardLength }, (x, i) => _block2d[i][i]) : [''];                                                //check positive Diagonal ( \ )
+  let negDiagonalLine = ((col + row + 1) == chessBoardLength) ? Array.from({ length: chessBoardLength }, (x, i) => _block2d[i][chessBoardLength - 1 - i]) : [''];//check negative Diagonal ( / )
+  if (checkLine(colLine) || checkLine(rowLine) || checkLine(posDiagonalLine) || checkLine(negDiagonalLine)) {
     return winOrDeuce(1, players[player].name);
   }
 
@@ -56,7 +55,6 @@ function checkStatus(element) {
 /* if click the cell of  chessborad disable this cell and print the icon of player on it, and check is it wins or chessboard full ?*/
 function clickBlock(element) {
 
-  element.classList.remove('hoverable');
   element.textContent = players[player].name;
   if (checkStatus(element)) {
     player ^= 1;

@@ -42,17 +42,10 @@ input:disabled {
 /* tic-tac-toc chessboard setting */
 #chessboard {
   display: flex;  
-  align-items: flex-start;
-  flex-direction: row;
   flex-wrap: wrap;
-
-  top: 0px;
-  left: 0px;
 
   height: calc(var(--chessBoardSize) * var(--baselineSize));
   width: calc(var(--chessBoardSize) * var(--baselineSize));
-
-  cursor: pointer;
 }
 
 /* cell of the chessboard setting */
@@ -70,16 +63,22 @@ input:disabled {
   text-align: center;
   line-height: var(--baselineSize);
   font-size: large;
-  /* cursor setting */
-  cursor: default;
+}
+/* during GAME PLAYING */
+:root[data-state = "0"] .blocks {
+  pointer-events: auto;
 }
 
-.hoverable:hover {
+:root[data-state = "0"] .blocks:empty:hover {
   cursor: pointer;
 }
 
-.hoverable:hover::after {
+:root[data-state = "0"] .blocks:empty:hover::after {
   content: var(--curPlayer);
+}
+/* before GAME START or GAME END */
+:root[data-state = "1"] .blocks {
+  pointer-events: none;
 }
 
 /* text area setting */

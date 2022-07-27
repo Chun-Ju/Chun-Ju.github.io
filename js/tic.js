@@ -3,9 +3,6 @@ let chessBoardLength = 3;
 let players;
 let player = 0;
 
-//determine game is ending or not
-let gameEnd = 1;
-
 function Player(name) {
   this.name = name;
   this.time = timeLimit;
@@ -17,6 +14,8 @@ let _blocks = document.getElementsByClassName('blocks');
 let _block2d = Array.from(Array(chessBoardLength), () => new Array(chessBoardLength));
 let _players = document.getElementsByClassName("players");
 let rootElement = document.documentElement;
+
+let gameEnd = rootElement.dataset.state = 1;//determine game is ending or not
 
 /* after first time onload, it need to set sth */
 function initial() {
@@ -34,28 +33,23 @@ function initial() {
   _restart.addEventListener("click", reset);
   _restart.disabled = true;
 
+  document.getElementById("chessboard").onclick = function (event) {
+    if (!event.target.textContent && !gameEnd) {
+      clickBlock(event.target);
+    }
+  };
 }
 
 /* enable to click and hover effect, finally start the timer */
 function start() {
-  gameEnd = 0;
-  document.getElementById("chessboard").onclick = function(event) {
-    if(!event.target.textContent && !gameEnd){
-      clickBlock(event.target);
-    }
-  };
-
-  Array.from(_blocks).forEach(element => element.classList.add('hoverable'));
-
+  rootElement.dataset.state = gameEnd = 0;
   [_start.disabled, _restart.disabled] = [_restart.disabled, _start.disabled];
-  //start the timer
-  startTimer();
+  startTimer();//start the timer
 }
 
 /* stop the timer and reset the thing display */
 function reset() {
-  //stop the timer
-  cancelTimer();
+  cancelTimer();//stop the timer
   Array.from(_players).forEach(element => element.textContent = (timeLimit / sec).toFixed(precision));
 
   resetBlock();
@@ -71,14 +65,9 @@ function reset() {
 
 /* stop the timer and alert the winner of the game */
 function winOrDeuce(win, winner) {
-  //stop the timer
-  cancelTimer();
-
-  Array.from(_blocks).forEach(element => element.classList.remove('hoverable'));
+  cancelTimer();//stop the timer
   (win) ? alert(`贏家是${winner}`) : alert("平手");
-
   return 0;
-
 }
 
 initial();
