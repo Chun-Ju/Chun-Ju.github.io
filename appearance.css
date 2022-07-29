@@ -7,12 +7,6 @@
 }
 
 /* general setting */
-* {
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-}
-
 body {
   margin-left: 25px;
 }
@@ -46,6 +40,9 @@ input:disabled {
 
   height: calc(var(--chessBoardSize) * var(--baselineSize));
   width: calc(var(--chessBoardSize) * var(--baselineSize));
+
+  border-top: 1px solid #000;
+  border-left: 1px solid #000;
 }
 
 /* cell of the chessboard setting */
@@ -57,6 +54,7 @@ input:disabled {
 
   background-color: transparent;
   /* border */
+  border: 0px;
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
   /* text and align center */

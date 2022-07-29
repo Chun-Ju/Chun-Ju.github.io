@@ -2,10 +2,11 @@ let chessBoardLength = 3;
 
 let players;
 let player = 0;
-
-function Player(name) {
-  this.name = name;
-  this.time = timeLimit;
+class Player {
+  constructor(name) {
+    this.name = name;
+    this.time = timeLimit;
+  }
 }
 
 let _start = document.getElementById('start');
@@ -19,7 +20,6 @@ let gameEnd = rootElement.dataset.state = 1;//determine game is ending or not
 
 /* after first time onload, it need to set sth */
 function initial() {
-
   rootElement.style.setProperty('--chessBoardSize', `${chessBoardLength}`);
   createBlock();
   resetBlock();
@@ -51,12 +51,10 @@ function start() {
 function reset() {
   cancelTimer();//stop the timer
   Array.from(_players).forEach(element => element.textContent = (timeLimit / sec).toFixed(precision));
-
   resetBlock();
 
   player = 0;
   players = [new Player("O"), new Player("X")];
-
   rootElement.style.setProperty('--curPlayer', `"${players[player].name}"`);
 
   [_start.disabled, _restart.disabled] = [_restart.disabled, _start.disabled];
