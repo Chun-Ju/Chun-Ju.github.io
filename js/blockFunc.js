@@ -41,11 +41,7 @@ function checkStatus(element) {
   }
 
   //full or not, if there is 0 empty means full
-  if (!document.querySelectorAll('.blocks:empty').length) {
-    return winOrDeuce(0);
-  }
-
-  return 1;
+  return (!document.querySelectorAll('.blocks:empty').length)? winOrDeuce(0) : 1;
 
 }
 
